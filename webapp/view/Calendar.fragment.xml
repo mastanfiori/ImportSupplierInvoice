@@ -1,0 +1,11 @@
+<!--
+
+    Copyright (C) 2009-2019 SAP SE or an SAP affiliate company. All rights reserved.
+
+-->
+<core:FragmentDefinition id="sap.fin.ap.invoice.upload.CalendarFragment" xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form"
+	xmlns:u="sap.ui.unified" xmlns:core="sap.ui.core" xmlns:smartfield="sap.ui.comp.smartfield">
+	<Popover title="{i18n>CalendarTitle}" class="sapUiContentPadding" placement="Bottom" beforeClose="beforeCalendarPopoverClose">
+		<u:Calendar id="fin.ap.invoice.upload.edit.Calendar" select="handleCalendarSelect"/>
+	</Popover>
+</core:FragmentDefinition>

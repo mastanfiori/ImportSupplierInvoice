@@ -1,0 +1,31 @@
+specVersion: "2.6"
+metadata:
+  name: fin.ap.invoice.upload
+type: application
+server:
+  customMiddleware:
+    - name: fiori-tools-proxy
+      afterMiddleware: compression
+      configuration:
+        ignoreCertError: false
+        backend:
+          - path: /sap
+            url: http://ws1:8000
+            client: "300"
+            destination: DS4_BAS_300_WS1
+        ui5:
+          path:
+            - /resources
+            - /test-resources
+          url: https://ui5.sap.com
+    - name: fiori-tools-appreload
+      afterMiddleware: compression
+      configuration:
+        port: 35729
+        path: webapp
+        delay: 300
+    - name: fiori-tools-preview
+      afterMiddleware: fiori-tools-appreload
+      configuration:
+        component: fin.ap.invoice.upload
+        ui5Theme: sap_fiori_3

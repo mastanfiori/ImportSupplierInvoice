@@ -1,0 +1,8 @@
+{ "application": "fin.ap.invoice.upload",
+  "version": "7.0.3",
+  "buildNumber": "31",
+  "buildId": "31",
+  "branch": "detached",
+  "revision": "d06dd5e94acbb60ad491d5f30ba5c4e4cafb730d",
+  "GitURL": ""
+}

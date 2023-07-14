@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (C) 2009-2019 SAP SE or an SAP affiliate company. All rights reserved.
+
+-->
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+	<edmx:DataServices m:DataServiceVersion="2.0">
+		<Schema Namespace="FAP_IMPORT_SUPPLIER_INVOICES" sap:schema-version="1" xml:lang="en" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+			<EntityType Name="FileContentForDownload" m:HasStream="true" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="Mimetype"/>
+					<PropertyRef Name="IsTemplate"/>
+				</Key>
+				<Property MaxLength="2" Name="Language" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="FileName" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="Mimetype" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="IsTemplate" Nullable="false" Type="Edm.Boolean" sap:creatable="false" sap:filterable="false" sap:label="Indicator" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+			</EntityType>
+			<EntityType Name="FileContentForUpload" m:HasStream="true" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="FileName"/>
+					<PropertyRef Name="Mimetype"/>
+				</Key>
+				<Property MaxLength="256" Name="FileName" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="Mimetype" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="22" Name="TmpId" Nullable="false" Type="Edm.String" sap:filterable="false" sap:label="Temp. Document ID" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="1" Name="TmpIdType" Nullable="false" Type="Edm.String" sap:filterable="false" sap:label="Temp. Document Type" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="40" Name="HeldDocumentID" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Temp. ID" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="32" Name="BatchInputSessionID" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Session Name" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="IsInitialUpload" Nullable="false" Type="Edm.Boolean" sap:creatable="false" sap:filterable="false" sap:label="Indicator" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="NumberOfDocumentsToBeUploaded" Nullable="false" Type="Edm.Int16" sap:creatable="false" sap:filterable="false" sap:label="Signed INT2 / int16" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="FileContent" Nullable="false" Type="Edm.Binary" sap:creatable="false" sap:filterable="false" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="NumberOfDocumentsUploaded" Nullable="false" Type="Edm.Int16" sap:creatable="false" sap:filterable="false" sap:label="Signed INT2 / int16" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+			</EntityType>
+			<EntityType Name="Language" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="Spras"/>
+				</Key>
+				<Property MaxLength="2" Name="Spras" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Language" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="16" Name="Sptxt" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Name" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+			</EntityType>
+			<EntityType Name="InvoiceList" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="Key"/>
+				</Key>
+				<Property MaxLength="2" Name="AccountingDocumentType" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Accounting Document Type" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="2" Name="BusinessNetworkOrigin" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Business Network Origin" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="27" Name="PaytSlipWthRefReference" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="POR reference number" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="4" Name="BusinessPlace" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Business Place" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="2" Name="PaytSlipWthRefCheckDigit" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="POR check digit" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="11" Name="PaytSlipWthRefSubscriber" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="POR subscriber number" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="50" Name="SupplierPostingLineItemText" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Supplier Posting Line Item Text" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="18" Name="AssignmentReference" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Assignment Reference" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="15" Name="UnplndDelivCostTaxJurisdiction" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Unplanned Delivery Cost Tax Jurisdiction" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="2" Name="UnplannedDeliveryCostTaxCode" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Unplanned Delivery Cost Tax Code" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="UnplannedDeliveryCost" Precision="13" Scale="13" Type="Edm.Decimal" sap:creatable="false" sap:filterable="false" sap:label="Unplanned Delivery Cost" sap:sortable="false" sap:unicode="false" sap:unit="Currency" sap:updatable="false"/>
+				<Property MaxLength="1" Name="FixedCashDiscount" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Fixed Cash Discount" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="NetPaymentDays" Precision="3" Scale="0" Type="Edm.Decimal" sap:creatable="false" sap:filterable="false" sap:label="Net Payment Days" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="CashDiscount2Percent" Precision="5" Scale="3" Type="Edm.Decimal" sap:creatable="false" sap:filterable="false" sap:label="Disc.percent 2" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="CashDiscount2Days" Precision="3" Scale="0" Type="Edm.Decimal" sap:creatable="false" sap:filterable="false" sap:label="Days 2" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="4" Name="PaymentTerms" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Payment Terms" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="4" Name="InvoiceReferenceFiscalYear" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Invoice Reference Fiscal Year" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="10" Name="InvoiceReference" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Invoice Reference" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="30" Name="PaymentReference" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Payment Reference" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="1" Name="PaymentMethod" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Payment Method" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="ManualCashDiscount" Precision="3" Scale="2" Type="Edm.Decimal" sap:creatable="false" sap:filterable="false" sap:label="Manual Cash Discount" sap:sortable="false" sap:unicode="false" sap:unit="Currency" sap:updatable="false"/>
+				<Property MaxLength="1" Name="PaymentBlockingReason" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Payment Blocking Reason" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="Key" Nullable="false" Type="Edm.Guid" sap:creatable="false" sap:filterable="false" sap:label="Supplier Invoice Key" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="RootKey" Type="Edm.Guid" sap:creatable="false" sap:filterable="false" sap:label="Node ID" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="CreationDate" Precision="8" Type="Edm.DateTime" sap:creatable="false" sap:filterable="false" sap:label="Creation Date" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="1" Name="CheckStatus" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Validation Status" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="10" Name="SupplierInvoice" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Invoice Number" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="4" Name="FiscalYear" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Fiscal Year" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="10" Name="InvoicingParty" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Invoicing Party" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="DocumentDate" Precision="8" Type="Edm.DateTime" sap:creatable="false" sap:filterable="false" sap:label="Invoice Date" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="PostingDate" Precision="8" Type="Edm.DateTime" sap:creatable="false" sap:filterable="false" sap:label="Posting Date" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="5" Name="Currency" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Currency" sap:semantics="currency-code" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="1" Name="DocumentStutas" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Status" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="12" Name="CreatedBy" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Created By" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="16" Name="Reference" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Reference" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="4" Name="CompanyCode" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Company Code" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="BaselineDate" Precision="8" Type="Edm.DateTime" sap:creatable="false" sap:filterable="false" sap:label="Baseline Date" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="CashDiscDays" Precision="3" Scale="0" Type="Edm.Decimal" sap:creatable="false" sap:filterable="false" sap:label="Days 1" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="CashDiscPercent" Precision="5" Scale="3" Type="Edm.Decimal" sap:creatable="false" sap:filterable="false" sap:label="Disc.percent 1" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="25" Name="HeaderText" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Header Text" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="Amount" Precision="14" Scale="3" Type="Edm.Decimal" sap:creatable="false" sap:filterable="false" sap:label="Gross Invoice Amount" sap:sortable="false" sap:unicode="false" sap:unit="Currency" sap:updatable="false"/>
+				<Property MaxLength="1" Name="InvoiceStatus" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Invoice Status" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="2" Name="DraftStatus" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Draft Status" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="1" Name="CheckDuplicate" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Check Flag for Double Invoices" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+			</EntityType>
+			<EntityType Name="FeatureToggle" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="ToggleId"/>
+				</Key>
+				<Property MaxLength="40" Name="ToggleId" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="ToggleActive" Nullable="false" Type="Edm.Boolean" sap:creatable="false" sap:filterable="false" sap:label="Indicator" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+			</EntityType>
+			<EntityType Name="VL_SH_FAP_T003" sap:content-version="1" sap:label="Document Type Value Help">
+				<Key>
+					<PropertyRef Name="BLART"/>
+				</Key>
+				<Property Name="XKOAK" Nullable="false" Type="Edm.Boolean" sap:creatable="false" sap:filterable="false" sap:label="Vendor" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="2" Name="BLART" Nullable="false" Type="Edm.String" sap:creatable="false" sap:label="Journal Entry Type" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="20" Name="LTEXT" Nullable="false" Type="Edm.String" sap:creatable="false" sap:label="JE Type Name" sap:unicode="false" sap:updatable="false"/>
+			</EntityType>
+			<EntityType Name="VL_SH_ODATA_ZTERM" sap:content-version="1" sap:label="Payment Term Value Help">
+				<Key>
+					<PropertyRef Name="LANGUAGE"/>
+					<PropertyRef Name="PAYMENTTERMS"/>
+				</Key>
+				<Property MaxLength="2" Name="LANGUAGE" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Language" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="4" Name="PAYMENTTERMS" Nullable="false" Type="Edm.String" sap:creatable="false" sap:label="Payment Terms" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="30" Name="PAYMENTTERMSNAME" Nullable="false" Type="Edm.String" sap:creatable="false" sap:label="Description" sap:unicode="false" sap:updatable="false"/>
+			</EntityType>
+			<EntityType Name="FinsPostingAPHeader" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="Supplierinvoiceuploadfileuuid"/>
+				</Key>
+				<Property MaxLength="1" Name="Supplierinvoicetransactiontype" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Transaction" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="4" Name="Companycode" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Company Code" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="Documentdate" Precision="7" Type="Edm.DateTime" sap:creatable="false" sap:filterable="false" sap:label="Document Date" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="Postingdate" Precision="7" Type="Edm.DateTime" sap:creatable="false" sap:filterable="false" sap:label="Posting Date" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="16" Name="Supplierinvoiceidbyinvcgparty" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Reference" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="10" Name="Invoicingparty" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Invoicing Party" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="Invoicegrossamount" Precision="14" Scale="3" Type="Edm.Decimal" sap:creatable="false" sap:filterable="false" sap:label="Gross Inv. Amnt" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="5" Name="Documentcurrency" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Currency" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="1" Name="Paymentblockingreason" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Pmnt block" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="Duecalculationbasedate" Precision="7" Type="Edm.DateTime" sap:creatable="false" sap:filterable="false" sap:label="Baseline date" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="Manualcashdiscount" Precision="14" Scale="3" Type="Edm.Decimal" sap:creatable="false" sap:filterable="false" sap:label="CD Amount" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="1" Name="Paymentmethod" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Pymt Meth." sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="10" Name="Invoicereference" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="InR.Ref.no." sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="4" Name="Invoicereferencefiscalyear" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Fiscal Year" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="4" Name="Paymentterms" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Pyt Terms" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="Cashdiscount1days" Precision="6" Scale="3" Type="Edm.Decimal" sap:creatable="false" sap:filterable="false" sap:label="Days 1" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="Cashdiscount1percent" Precision="5" Scale="3" Type="Edm.Decimal" sap:creatable="false" sap:filterable="false" sap:label="Disc.percent 1" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="Cashdiscount2days" Precision="6" Scale="3" Type="Edm.Decimal" sap:creatable="false" sap:filterable="false" sap:label="Days 2" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="Cashdiscount2percent" Precision="5" Scale="3" Type="Edm.Decimal" sap:creatable="false" sap:filterable="false" sap:label="Disc.percent 2" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="Netpaymentdays" Precision="6" Scale="3" Type="Edm.Decimal" sap:creatable="false" sap:filterable="false" sap:label="Days Net" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="1" Name="Fixedcashdiscount" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Fixed" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="Unplanneddeliverycost" Precision="14" Scale="3" Type="Edm.Decimal" sap:creatable="false" sap:filterable="false" sap:label="Unpl. Del. Csts" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="2" Name="Unplanneddeliverycosttaxcode" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Tax Code" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="15" Name="Unplnddelivcosttaxjurisdiction" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Tax Jurisdiction" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="1" Name="Referencedocumentcategory" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Reference Document Category" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="2" Name="Accountingdocumenttype" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Document type" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="18" Name="Assignmentreference" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Assignment" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="50" Name="Supplierpostinglineitemtext" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Text" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="25" Name="Accountingdocumentheadertext" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Doc.Header Text" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="1" Name="Supplierinvoiceorigin" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="IV category" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="2" Name="Businessnetworkorigin" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Bus. Network Origin" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="Supplierinvoiceuploadfileuuid" Nullable="false" Type="Edm.Guid" sap:creatable="false" sap:filterable="false" sap:label="GUID" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+			</EntityType>
+			<EntityType Name="FinsPostingAPItem" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="Workitem"/>
+				</Key>
+				<Property Name="Supplierinvoiceitemamount" Nullable="false" Precision="14" Scale="3" Type="Edm.Decimal" sap:creatable="false" sap:filterable="false" sap:label="Amount" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="1" Name="Debitcreditcode" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Debit/Credit" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="2" Name="Taxcode" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Tax Code" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="15" Name="Taxjurisdiction" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Tax Jurisdiction" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="50" Name="Supplierinvoiceitemtext" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Text" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="18" Name="Assignmentreference" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Assignment" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="4" Name="Businessarea" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Business Area" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="12" Name="Businessprocess" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Business Process" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="4" Name="Controllingarea" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="CO Area" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="10" Name="Costcenter" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Cost Center" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="6" Name="Costctractivitytype" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Activity Type" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="12" Name="Costobject" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Cost Object" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="16" Name="Functionalarea" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Functional Area" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="10" Name="Glaccount" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="G/L Account" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="Isnotcashdiscountliable" Type="Edm.Boolean" sap:creatable="false" sap:filterable="false" sap:label="Not Cash Disc Liable" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="12" Name="Internalorder" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Order" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="8" Name="Personnelnumber" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Personnel No." sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="10" Name="Profitcenter" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Profit Center" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="10" Name="Salesorder" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Sales Order" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="6" Name="Salesorderitem" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Sales Order Item" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="24" Name="Wbselement" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="WBS Element" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="12" Name="Projectnetwork" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Network" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="4" Name="Networkactivity" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Oper./Act." sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="10" Name="Workitem" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Work Item ID" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="24" Name="Commitmentitem" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Commitment item" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="16" Name="Fundsmanagementcenter" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Funds center" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="Taxbaseamountintranscrcy" Precision="14" Scale="3" Type="Edm.Decimal" sap:creatable="false" sap:filterable="false" sap:label="Base Amount" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="10" Name="Funds" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Fund" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="20" Name="Grant" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Grant" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="3" Name="Quantityunit" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Base Unit" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property Name="Quantity" Precision="13" Scale="3" Type="Edm.Decimal" sap:creatable="false" sap:filterable="false" sap:label="Quantity" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="4" Name="Partnerbusinessarea" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Partner BusinessArea" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+			</EntityType>
+			<EntityType Name="VL_SH_ODATA_KREDI" sap:content-version="1" sap:label="Invoicing Party Value Help">
+				<Key>
+					<PropertyRef Name="LAND1"/>
+					<PropertyRef Name="MCOD3"/>
+					<PropertyRef Name="SORTL"/>
+					<PropertyRef Name="MCOD1"/>
+					<PropertyRef Name="LIFNR"/>
+					<PropertyRef Name="BUKRS"/>
+				</Key>
+				<Property MaxLength="4" Name="BERGU" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Authorization" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="4" Name="KTOKK" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Account Group" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="3" Name="LAND1" Nullable="false" Type="Edm.String" sap:creatable="false" sap:label="Country" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="25" Name="MCOD3" Nullable="false" Type="Edm.String" sap:creatable="false" sap:label="City" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="10" Name="SORTL" Nullable="false" Type="Edm.String" sap:creatable="false" sap:label="Search Term" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="25" Name="MCOD1" Nullable="false" Type="Edm.String" sap:creatable="false" sap:label="Supplier Name" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="10" Name="LIFNR" Nullable="false" Type="Edm.String" sap:creatable="false" sap:label="Supplier" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="4" Name="BUKRS" Nullable="false" Type="Edm.String" sap:creatable="false" sap:label="Company Code" sap:unicode="false" sap:updatable="false"/>
+			</EntityType>
+			<EntityType Name="MassChange" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="PostingDate"/>
+				</Key>
+				<Property MaxLength="8" Name="PostingDate" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Posting Date" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="8" Name="DocumentDate" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Invoicing Date" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="10" Name="InvoicingParty" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Invoicing Party" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="2" Name="DocumentType" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Document Type" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="4" Name="PaymentTerm" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Payment Term" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="25" Name="HeaderText" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Header Text" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+				<Property MaxLength="50" Name="ItemText" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:label="Item Text" sap:sortable="false" sap:unicode="false" sap:updatable="false"/>
+			</EntityType>
+			<ComplexType Name="LogHandle">
+				<Property Name="LogHandleID" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:sortable="false" sap:updatable="false"/>
+				<Property Name="LogNumber" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:sortable="false" sap:updatable="false"/>
+			</ComplexType>
+			<ComplexType Name="ActionResult">
+				<Property Name="ActionOk" Nullable="false" Type="Edm.Boolean" sap:creatable="false" sap:filterable="false" sap:label="TRUE" sap:sortable="false" sap:updatable="false"/>
+			</ComplexType>
+			<ComplexType Name="ActionResultPost">
+				<Property Name="ActionOk" Nullable="false" Type="Edm.Boolean" sap:creatable="false" sap:filterable="false" sap:label="Indicator" sap:sortable="false" sap:updatable="false"/>
+				<Property Name="Counter" Nullable="false" Type="Edm.Int16" sap:creatable="false" sap:filterable="false" sap:label="Signed INT2 / int16" sap:sortable="false" sap:updatable="false"/>
+				<Property MaxLength="10" Name="SupplierInvoice" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:sortable="false" sap:updatable="false"/>
+				<Property MaxLength="4" Name="FiscalYear" Nullable="false" Type="Edm.String" sap:creatable="false" sap:filterable="false" sap:sortable="false" sap:updatable="false"/>
+				<Property Name="SupplierInvoiceIsBlocked" Nullable="false" Type="Edm.Boolean" sap:creatable="false" sap:filterable="false" sap:label="Indicator" sap:sortable="false" sap:updatable="false"/>
+			</ComplexType>
+			<ComplexType Name="ActionResultDuplicateCheck">
+				<Property Name="RootKey" Nullable="false" Type="Edm.Guid" sap:creatable="false" sap:filterable="false" sap:label="UUID" sap:sortable="false" sap:updatable="false"/>
+				<Property Name="Key" Nullable="false" Type="Edm.Guid" sap:creatable="false" sap:filterable="false" sap:label="UUID" sap:sortable="false" sap:updatable="false"/>
+				<Property Name="ActionOk" Nullable="false" Type="Edm.Boolean" sap:creatable="false" sap:filterable="false" sap:label="Indicator" sap:sortable="false" sap:updatable="false"/>
+			</ComplexType>
+			<EntityContainer Name="FAP_IMPORT_SUPPLIER_INVOICES_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+				<EntitySet EntityType="FAP_IMPORT_SUPPLIER_INVOICES.FileContentForDownload" Name="FilesContentForDownload" sap:addressable="false" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:pageable="false" sap:updatable="false"/>
+				<EntitySet EntityType="FAP_IMPORT_SUPPLIER_INVOICES.FileContentForUpload" Name="FilesContentForUpload" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:pageable="false" sap:updatable="false"/>
+				<EntitySet EntityType="FAP_IMPORT_SUPPLIER_INVOICES.Language" Name="Languages" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:pageable="false" sap:updatable="false"/>
+				<EntitySet EntityType="FAP_IMPORT_SUPPLIER_INVOICES.InvoiceList" Name="InvoiceListSet" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:pageable="false" sap:updatable="false"/>
+				<EntitySet EntityType="FAP_IMPORT_SUPPLIER_INVOICES.FeatureToggle" Name="FeatureToggleSet" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:pageable="false" sap:updatable="false"/>
+				<EntitySet EntityType="FAP_IMPORT_SUPPLIER_INVOICES.VL_SH_FAP_T003" Name="VHDocumentType" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:pageable="false" sap:searchable="true" sap:updatable="false"/>
+				<EntitySet EntityType="FAP_IMPORT_SUPPLIER_INVOICES.VL_SH_ODATA_ZTERM" Name="VHPaymentTerm" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:pageable="false" sap:searchable="true" sap:updatable="false"/>
+				<EntitySet EntityType="FAP_IMPORT_SUPPLIER_INVOICES.FinsPostingAPHeader" Name="FinsPostingAPHeaderCollection" sap:content-version="1"/>
+				<EntitySet EntityType="FAP_IMPORT_SUPPLIER_INVOICES.FinsPostingAPItem" Name="FinsPostingAPItemCollection" sap:content-version="1"/>
+				<EntitySet EntityType="FAP_IMPORT_SUPPLIER_INVOICES.VL_SH_ODATA_KREDI" Name="VHInvoicingParty" sap:content-version="1" sap:creatable="false" sap:deletable="false" sap:pageable="false" sap:searchable="true" sap:updatable="false"/>
+				<EntitySet EntityType="FAP_IMPORT_SUPPLIER_INVOICES.MassChange" Name="MassChangeCollection" sap:content-version="1"/>
+				<FunctionImport Name="PostEnabled" ReturnType="FAP_IMPORT_SUPPLIER_INVOICES.ActionResult" m:HttpMethod="GET"/>
+				<FunctionImport Name="GetLogHandle" ReturnType="FAP_IMPORT_SUPPLIER_INVOICES.LogHandle" m:HttpMethod="POST">
+					<Parameter Mode="In" Name="Key" Type="Edm.Guid"/>
+				</FunctionImport>
+				<FunctionImport Name="Post" ReturnType="FAP_IMPORT_SUPPLIER_INVOICES.ActionResultPost" m:HttpMethod="GET">
+					<Parameter Mode="In" Name="CombinedKey" Type="Edm.String"/>
+				</FunctionImport>
+				<FunctionImport Name="Check" ReturnType="FAP_IMPORT_SUPPLIER_INVOICES.ActionResult" m:HttpMethod="GET">
+					<Parameter Mode="In" Name="Key" Type="Edm.Guid"/>
+					<Parameter Mode="In" Name="RootKey" Type="Edm.Guid"/>
+				</FunctionImport>
+				<FunctionImport Name="Delete" ReturnType="FAP_IMPORT_SUPPLIER_INVOICES.ActionResult" m:HttpMethod="GET">
+					<Parameter Mode="In" Name="Key" Type="Edm.Guid"/>
+					<Parameter Mode="In" Name="RootKey" Type="Edm.Guid"/>
+				</FunctionImport>
+				<FunctionImport Name="DuplicateCheck" ReturnType="FAP_IMPORT_SUPPLIER_INVOICES.ActionResultDuplicateCheck" m:HttpMethod="POST">
+					<Parameter Mode="In" Name="Key" Type="Edm.Guid"/>
+				</FunctionImport>
+				<FunctionImport Name="ParkAsCompleted" ReturnType="FAP_IMPORT_SUPPLIER_INVOICES.ActionResult" m:HttpMethod="GET">
+					<Parameter Mode="In" Name="Key" Type="Edm.Guid"/>
+					<Parameter Mode="In" Name="RootKey" Type="Edm.Guid"/>
+				</FunctionImport>
+				<FunctionImport Name="Update" ReturnType="FAP_IMPORT_SUPPLIER_INVOICES.ActionResult" m:HttpMethod="GET">
+					<Parameter MaxLength="4" Mode="In" Name="PaymentTerm" Nullable="true" Type="Edm.String"/>
+					<Parameter MaxLength="2" Mode="In" Name="DocumentType" Nullable="true" Type="Edm.String"/>
+					<Parameter MaxLength="25" Mode="In" Name="HeaderText" Nullable="true" Type="Edm.String"/>
+					<Parameter MaxLength="50" Mode="In" Name="ItemText" Nullable="true" Type="Edm.String"/>
+					<Parameter Mode="In" Name="Key" Type="Edm.Guid"/>
+					<Parameter Mode="In" Name="RootKey" Type="Edm.Guid"/>
+					<Parameter MaxLength="10" Mode="In" Name="InvoicingParty" Nullable="true" Type="Edm.String"/>
+					<Parameter MaxLength="8" Mode="In" Name="DocumentDate" Nullable="true" Type="Edm.String"/>
+					<Parameter MaxLength="8" Mode="In" Name="PostingDate" Nullable="true" Type="Edm.String"/>
+				</FunctionImport>
+			</EntityContainer>
+			<atom:link href="http://localhost/DUMMY_SERVICE/$metadata" rel="self" xmlns:atom="http://www.w3.org/2005/Atom"/>
+			<atom:link href="http://localhost/DUMMY_SERVICE/$metadata" rel="latest-version" xmlns:atom="http://www.w3.org/2005/Atom"/>
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

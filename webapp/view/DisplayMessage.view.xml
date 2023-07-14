@@ -1,0 +1,59 @@
+<!--
+
+    Copyright (C) 2009-2019 SAP SE or an SAP affiliate company. All rights reserved.
+
+-->
+<mvc:View
+	controllerName="fin.ap.invoice.upload.controller.DisplayMessage"
+	xmlns:l="sap.ui.layout"
+	xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:semantic="sap.m.semantic"
+	xmlns:smarttable="sap.ui.comp.smarttable"
+	xmlns="sap.m">
+	<semantic:FullscreenPage id="sap.fin.gl.journalentry.upload.DispalyMessagePage"
+							 navButtonPress="onNavBack"
+							 showNavButton="true"
+		                     title="{i18n>UploadViewTitle}">
+		<semantic:content>
+		<VBox>
+			<MessageStrip id="sap.fin.gl.journalentry.upload.DispalyMsg.MsgStrip"
+				type="Warning"
+				showIcon="true"
+				showCloseButton="false"
+				class="sapUiNoMarginBottom">
+			</MessageStrip>
+				<Table id="fin.gl.journalentry.upload.MessageTable"
+					   inset="false"
+				       items="{ path: '/ErrorMessagesList'}"
+				       class="sapUiNoMarginTop">
+					<headerToolbar>
+						<Toolbar id="fin.gl.journalentry.upload.toolbar">
+							<Title id="sap.fin.gl.journalentry.upload.DispalyMessage.TableTitle" level="H2"/>
+							<ToolbarSpacer/>
+							<Button id="fin.gl.journalentry.upload.button.excel" icon="sap-icon://excel-attachment" tooltip="{i18n>Export}" press="onPressExport"/>
+						</Toolbar>
+					</headerToolbar>
+					<columns>
+						<Column id="fin.gl.journalentry.upload.column.messageType" hAlign="Center" width="10%" tooltip="{i18n>MessageType}">
+							<Text text="{i18n>MessageType}" />
+						</Column>
+						<Column id="fin.gl.journalentry.upload.column.messages" width="90%">
+							<Text text="{i18n>Messages}" tooltip="{i18n>Messages}"/>
+						</Column>
+					</columns>
+					<items>
+						<ColumnListItem>
+							<cells>
+								<core:Icon src="{= (${MessageType} === 'error') ?  'sap-icon://message-error' : 'sap-icon://message-warning'}"
+			                               color="{= (${MessageType} === 'error') ?  'red' : '#E69A17'}"
+			                               tooltip="{= (${MessageType} === 'error') ?  ${i18n>Error} : ${i18n>Warning}}"/>
+								<Text text="{ErrorMessage}"/>
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
+		</VBox>
+		</semantic:content>
+	</semantic:FullscreenPage>
+</mvc:View>
